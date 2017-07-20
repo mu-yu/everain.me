@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%= require('html-loader!./src/html/head.tpl.html') %>
+</head>
+<body>
+  <%= require('html-loader!./src/html/nav.tpl.html') %>
+  <div class="content">
+    <%= require('html-loader!./src/html/' + htmlWebpackPlugin.options.contentName + 'Content.tpl.html') %>
+  </div>
+  <%= require('html-loader!./src/html/ga.tpl.html') %>
+</body>
+</html>
