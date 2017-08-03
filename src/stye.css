@@ -10,13 +10,13 @@ html, body {
 }
 
 a {
-  color: #00bcd4;
+  color: #A4D100;
   text-decoration: none;
-  &:hover {
-    color: #80deea;
-  }
   &:visited {
-    color: #00bcd4;
+    color: #A4D100;
+  }
+  &:hover {
+    color: #A4D100;
   }
 }
 
@@ -25,10 +25,11 @@ a {
 body {
   display: flex;
   flex-flow: row nowrap;
+  background: #181818;
   & > nav {
     width: 320px;
     line-height: 40px;
-    background: rgba(255, 249, 226, 0.61);
+    background: #323232;
     text-align: center;
 
     img {
@@ -39,21 +40,36 @@ body {
       width: 160px;
       height: 160px;
       margin: 20px;
-      font-size: 10px;
+      font-size: 18px;
       line-height: 160px;
-      border: 1px solid #f9f6c6;
-      background: #f9f6c6;
+      color: #A4D100;
+      background-color: #4c4c4c;
+      word-break: break-all;
       overflow: hidden;
+      span {
+        display: inline-block;
+      }
     }
 
     a {
       display: block;
+      &:hover {
+        background: #4c4c4c;
+      }
+    }
+
+    li.active {
+      a {
+        background: #A4D100;
+        color: #323232;
+      }
     }
   }
 
   & > div.content {
     width: calc(100vw - 320px);
-    background: #effffe;
+    background: #181818;
+    color: rgba(255, 255, 255, 0.7);
     padding: 20px;
   }
 }
@@ -100,7 +116,7 @@ body {
   }
 
   body > div.content {
-    padding-top: 40px;
+    padding-top: 60px;
     width: 100vw;
   }
 }
@@ -110,6 +126,29 @@ body {
     width: 100%;
     height: 100%;
     display: flex;
+  }
+  .index {
+    .tip {
+      padding: 20px;
+      width: 100%;
+      background: rgba(76, 76, 76, .76);
+      border-radius: 10px;
+      height: auto;
+    }
+
+    canvas.index-bg {
+      position: absolute;
+      top: 0;
+      left: 330px;
+      z-index: 0;
+      pointer-events: none;
+    }
+    @media all and (max-width: 720px) {
+      canvas.index-bg {
+        top: 60px;
+        left: 20px;
+      }
+    }
   }
   .friend {
     flex-flow: row;
@@ -172,7 +211,20 @@ body {
   }
 
   .about {
-    justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    flex-flow: column;
+    .text__delete {
+      text-decoration: line-through;
+      color: #4c4c4c;
+    }
+
+    @media all and (max-width: 720px) {
+      h1 {
+        font-weight: normal;
+      }
+      p {
+        font-size: 14px;
+      }
+    }
   }
 }

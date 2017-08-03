@@ -31,26 +31,6 @@ module.exports = {
         include: [path.join(__dirname, 'src')]
       },
       {
-        test: /\.css$/,
-        include: [path.resolve(__dirname, 'src'), path.resolve(__dirname, 'node_modules')],
-        use: ExtractTextPlugin.extract({
-          fallback: [{
-            loader: 'style-loader',
-          }],
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                importLoaders: 1,
-              }
-            },
-            {
-              loader: 'postcss-loader'
-            }
-          ]
-        })
-      },
-      {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',
         options: {
@@ -79,6 +59,26 @@ module.exports = {
 }
 
 if (process.env.NODE_ENV === 'development') {
+  module.exports.module.rules = module.exports.module.rules.concat([
+    {
+      test: /\.css$/,
+      include: [path.resolve(__dirname, 'src'), path.resolve(__dirname, 'node_modules')],
+      use: [
+        {
+          loader: 'style-loader'
+        },
+        {
+          loader: 'css-loader',
+          options: {
+            importLoaders: 1,
+          }
+        },
+        {
+          loader: 'postcss-loader'
+        }
+      ]
+    },
+  ])
   module.exports.devtool = '#cheap-module-eval-source-map'
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
@@ -114,7 +114,29 @@ if (process.env.NODE_ENV === 'production') {
     path: path.resolve(__dirname, 'dist'),
     filename: path.resolve(__dirname, 'dist', 'js/[name].[chunkhash].js'),
     chunkFilename: path.resolve(__dirname, 'dist', 'js/[id].[chunkhash].js')
-  },
+  }
+  module.exports.module.rules = module.exports.module.rules.concat([
+    {
+      test: /\.css$/,
+      include: [path.resolve(__dirname, 'src'), path.resolve(__dirname, 'node_modules')],
+      use: ExtractTextPlugin.extract({
+        fallback: [{
+          loader: 'style-loader',
+        }],
+        use: [
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+            }
+          },
+          {
+            loader: 'postcss-loader'
+          }
+        ]
+      })
+    },
+  ])
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
       'process.env': '"production"'
