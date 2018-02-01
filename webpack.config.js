@@ -184,7 +184,8 @@ if (process.env.NODE_ENV === 'production') {
         from: path.resolve(__dirname, './static'),
         to: path.resolve(__dirname, 'dist', 'static'),
         ignore: ['.*']
-      }
+      },
+      { from: 'sitemap.xml' }
     ])
   ]);
 
